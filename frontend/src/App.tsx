@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./App.css";
 import { ProfileList } from "./components/ProfileList";
+import { Button, Typography } from "@mui/material";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [showProfileList, setShowProfileList] = useState(false);
 
   const handleChangeUserList = () => {
@@ -13,16 +13,17 @@ function App() {
   return (
     <>
       <div>
-        <h1>Users Management Application</h1>
-        <h1>React + NestJS + PostgreSQL</h1>
+        <Typography variant="h2" color="primary">Users Management Application</Typography>
+        <Typography variant="h2" color="primary" gutterBottom>React + NestJS + PostgreSQL</Typography>
       </div>
 
       <div>
-        <h2>System actions hotbar:</h2>
-        <div>
-          <button onClick={handleChangeUserList}>
+        <Typography variant="h4" color="primary" gutterBottom>System actions hotbar:</Typography>
+        <div style={{ display: "flex ", flexDirection: "column", gap: "1em" }}>
+          <Button variant="contained" onClick={handleChangeUserList}>
             {showProfileList ? "Hide Profiles List" : "Show Profiles List"}
-          </button>
+          </Button>
+          
           {showProfileList ? <ProfileList /> : null}
         </div>
       </div>

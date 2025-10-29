@@ -25,15 +25,15 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateProfileDto.prototype, "permissions", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'usuario123', description: 'Nome de usuário único' }),
+    (0, swagger_1.ApiProperty)({ example: 'user_1', description: 'Unique username' }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateProfileDto.prototype, "username", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'email@hoster.com',
-        description: 'Endereço de e-mail único',
+        example: 'user.1@hoster.com',
+        description: 'Unique email address',
     }),
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -41,8 +41,8 @@ __decorate([
 ], CreateProfileDto.prototype, "email", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'cb611c0ff30a98dc92199d7fdc393bba8bf0f7756f3515664a60b01c4a083160',
-        description: 'Hash da senha do usuário',
+        example: 'yuAy4Y-SzBGOYBKngwm7xw',
+        description: 'User password hash',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

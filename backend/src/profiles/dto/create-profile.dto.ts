@@ -8,22 +8,22 @@ export class CreateProfileDto {
   @IsInt()
   permissions: number;
 
-  @ApiProperty({ example: 'usuario123', description: 'Nome de usuário único' })
+  @ApiProperty({ example: 'user_1', description: 'Unique username' })
   @IsString()
   @IsNotEmpty()
   username: string;
 
   @ApiProperty({
-    example: 'email@hoster.com',
-    description: 'Endereço de e-mail único',
+    example: 'user.1@hoster.com',
+    description: 'Unique email address',
   })
   @IsEmail() // Valida o formato do e-mail
   @IsNotEmpty()
   email: string;
 
   @ApiProperty({
-    example: 'cb611c0ff30a98dc92199d7fdc393bba8bf0f7756f3515664a60b01c4a083160',
-    description: 'Hash da senha do usuário',
+    example: 'yuAy4Y-SzBGOYBKngwm7xw',
+    description: 'User password hash',
   })
   @IsString()
   @IsNotEmpty()

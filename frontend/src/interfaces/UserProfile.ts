@@ -6,3 +6,6 @@ export interface UserProfile {
   password_hash: string;
   created_at: string;
 }
+
+// Crie um tipo para o formulário (exclui id e created_at)
+export type NewUserProfileForm = Omit<UserProfile, 'id' | 'created_at'>;
