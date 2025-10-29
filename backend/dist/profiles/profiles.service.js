@@ -43,6 +43,28 @@ let ProfilesService = class ProfilesService {
     findByUsername(username) {
         return this.profilesRepository.findOneBy({ username });
     }
+    async update(id, updateProfileDto) {
+        const profile = await this.profilesRepository.findOneBy({ id });
+        if (!profile) {
+            throw new common_1.NotFoundException(`Perfil com ID ${id} não encontrado para atualização.`);
+        }
+        try {
+            this.profilesRepository.merge(profile, updateProfileDto);
+            return await this.profilesRepository.save(profile);
+        }
+        catch (error) {
+            if (error.code === '23505') {
+                throw new common_1.ConflictException('O nome de usuário ou e-mail já está em uso por outro perfil.');
+            }
+            throw error;
+        }
+    }
+    async remove(id) {
+        const result = await this.profilesRepository.delete(id);
+        if (result.affected === 0) {
+            throw new common_1.NotFoundException(`Perfil com ID ${id} não encontrado.`);
+        }
+    }
 };
 exports.ProfilesService = ProfilesService;
 exports.ProfilesService = ProfilesService = __decorate([

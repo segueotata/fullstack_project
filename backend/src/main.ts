@@ -6,11 +6,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // app.enableCors({
-  //   origin: 'http://localhost:5173',
-  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  //   credentials: false, // necessário para cookies
-  // });
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: false, // necessário para cookies
+  });
 
   // Aplica o ValidationPipe globalmente para TODAS as rotas
   app.useGlobalPipes(

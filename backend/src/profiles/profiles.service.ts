@@ -1,10 +1,15 @@
 // src/profiles/profiles.service.ts
 
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Profile } from './entities/profile.entity';
 import { CreateProfileDto } from './dto/create-profile.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
 @Injectable()
 export class ProfilesService {
@@ -45,6 +50,47 @@ export class ProfilesService {
   // Exemplo de como você faria uma pesquisa personalizada
   findByUsername(username: string): Promise<Profile | null> {
     return this.profilesRepository.findOneBy({ username });
+  }
+
+  async update(
+    id: number,
+    updateProfileDto: UpdateProfileDto,
+  ): Promise<Profile> {
+    // 1. Busca o perfil existente (ou NotFoundException será lançado)
+    const profile = await this.profilesRepository.findOneBy({ id });
+
+    if (!profile) {
+      throw new NotFoundException(
+        `Perfil com ID ${id} não encontrado para atualização.`,
+      );
+    }
+
+    try {
+      // 2. Mescla os dados existentes com os novos dados do DTO
+      // O Object.assign ou o .merge() do TypeORM é ideal para PATCH/UPDATE
+      this.profilesRepository.merge(profile, updateProfileDto);
+
+      // 3. Salva a entidade atualizada (TypeORM entende que deve ser um UPDATE)
+      return await this.profilesRepository.save(profile);
+    } catch (error) {
+      // 4. Captura erro de unicidade (se o novo email ou username já existir)
+      if (error.code === '23505') {
+        throw new ConflictException(
+          'O nome de usuário ou e-mail já está em uso por outro perfil.',
+        );
+      }
+      throw error;
+    }
+  }
+
+  async remove(id: number): Promise<void> {
+    // Tenta deletar o perfil com o ID fornecido
+    const result = await this.profilesRepository.delete(id);
+
+    // Verifica se alguma linha foi afetada. Se não, o perfil não existia.
+    if (result.affected === 0) {
+      throw new NotFoundException(`Perfil com ID ${id} não encontrado.`);
+    }
   }
 
   // (Aqui você adicionaria os métodos create, update e remove)

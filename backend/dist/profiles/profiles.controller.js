@@ -18,6 +18,7 @@ const profiles_service_1 = require("./profiles.service");
 const profile_entity_1 = require("./entities/profile.entity");
 const swagger_1 = require("@nestjs/swagger");
 const create_profile_dto_1 = require("./dto/create-profile.dto");
+const update_profile_dto_1 = require("./dto/update-profile.dto");
 let ProfilesController = class ProfilesController {
     profilesService;
     constructor(profilesService) {
@@ -35,6 +36,12 @@ let ProfilesController = class ProfilesController {
             throw new common_1.NotFoundException(`Perfil com ID ${id} não encontrado.`);
         }
         return profile;
+    }
+    async update(id, updateProfileDto) {
+        return this.profilesService.update(parseInt(id, 10), updateProfileDto);
+    }
+    async remove(id) {
+        await this.profilesService.remove(parseInt(id, 10));
     }
 };
 exports.ProfilesController = ProfilesController;
@@ -67,6 +74,34 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ProfilesController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Patch)(':id'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, swagger_1.ApiOperation)({ summary: 'Atualiza parcialmente um perfil de usuário.' }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Perfil atualizado com sucesso.',
+        type: profile_entity_1.Profile,
+    }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Perfil não encontrado.' }),
+    (0, swagger_1.ApiResponse)({ status: 409, description: 'E-mail ou Username já em uso.' }),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_profile_dto_1.UpdateProfileDto]),
+    __metadata("design:returntype", Promise)
+], ProfilesController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
+    (0, swagger_1.ApiOperation)({ summary: 'Remove um perfil de usuário pelo ID.' }),
+    (0, swagger_1.ApiResponse)({ status: 204, description: 'Perfil removido com sucesso.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Perfil não encontrado.' }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProfilesController.prototype, "remove", null);
 exports.ProfilesController = ProfilesController = __decorate([
     (0, swagger_1.ApiTags)('profiles'),
     (0, common_1.Controller)('profiles'),
