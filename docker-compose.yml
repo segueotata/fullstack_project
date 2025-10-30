@@ -1,12 +1,12 @@
 services:
   db:
     image: postgres:15-alpine
-    container_name: banco_db
+    container_name: fullstack_project
     restart: always
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: banco_db
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:

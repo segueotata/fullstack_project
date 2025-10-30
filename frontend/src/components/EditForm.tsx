@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import type { UserProfile } from "../interfaces/UserProfile";
+import { TextField } from "@mui/material";
 
 interface EditFormProps {
   profile: UserProfile;
@@ -33,14 +34,14 @@ export const EditForm: React.FC<EditFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
+      <TextField
         name="username"
         value={formData.username}
         onChange={handleChange}
-        placeholder="Novo Nome de Usuário"
+        placeholder="New Username"
         required
       />
-      <input
+      <TextField
         name="email"
         type="email"
         value={formData.email}

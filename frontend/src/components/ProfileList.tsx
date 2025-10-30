@@ -100,9 +100,18 @@ export const ProfileList: React.FC = () => {
         alignItems="center"
         mb={2}
       >
-        <Typography variant="h4" color="primary">
+        <Typography variant="caption" color="primary">
           Lista de Perfis ({profiles.length})
         </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "1em",
+        }}
+      >
         <Button
           variant="contained"
           color="primary"
@@ -110,20 +119,16 @@ export const ProfileList: React.FC = () => {
         >
           + New User
         </Button>
+        <TextField
+          variant="outlined"
+          label="Filter profiles... (by: ID, Name, Email, Permission and Created at)"
+          placeholder="Filter profiles... (by: ID, Name, Email, Permission and Created at)"
+        />
       </Box>
-
-      <TextField
-        variant="outlined"
-        size="small"
-        label="Filter profiles... (by: ID, Name, Email, Permission and Created at)"
-        placeholder="Filter profiles... (by: ID, Name, Email, Permission and Created at)"
-        fullWidth
-        sx={{ mb: 3 }}
-      />
 
       {profiles.length === 0 ? (
         <Typography variant="h6" color="textSecondary">
-          Nenhum perfil encontrado.
+          No profile found.
         </Typography>
       ) : (
         <Box component="ul">

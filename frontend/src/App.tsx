@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { ProfileList } from "./components/ProfileList";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 function App() {
   const [showProfileList, setShowProfileList] = useState(false);
@@ -12,21 +12,47 @@ function App() {
   };
   return (
     <>
-      <div>
-        <Typography variant="h2" color="primary">Users Management Application</Typography>
-        <Typography variant="h2" color="primary" gutterBottom>React + NestJS + PostgreSQL</Typography>
-      </div>
+      <Box>
+        <Typography
+          variant="h2"
+          color="primary"
+          sx={{
+            borderBottom: "4px solid royalblue",
+          }}
+        >
+          Users Management Application
+          <br />
+          React + NestJS + PostgreSQL
+        </Typography>
+        <Typography variant="h2" color="primary" gutterBottom></Typography>
+      </Box>
 
-      <div>
-        <Typography variant="h4" color="primary" gutterBottom>System actions hotbar:</Typography>
-        <div style={{ display: "flex ", flexDirection: "column", gap: "1em" }}>
+      <Box>
+        <Typography
+          variant="h4"
+          color="primary"
+          gutterBottom
+          sx={{
+            textAlign: "left",
+          }}
+        >
+          System actions hotbar:
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            gap: "1em",
+            mb: "1em",
+          }}
+        >
           <Button variant="contained" onClick={handleChangeUserList}>
             {showProfileList ? "Hide Profiles List" : "Show Profiles List"}
           </Button>
-          
-          {showProfileList ? <ProfileList /> : null}
-        </div>
-      </div>
+          <Button variant="contained">Update Profiles</Button>
+        </Box>
+        {showProfileList ? <ProfileList /> : null}
+      </Box>
     </>
   );
 }
